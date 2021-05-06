@@ -59,7 +59,6 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="assets/presentation/index.css" />
-
     <script src="/assets/behavior/index.js" defer></script>
   </head>
   <body>
@@ -124,11 +123,13 @@
     <!-- Search -->
     <section id="search">
       <div id="wrapper">
+        <i class="fas fa-search fa-3x"></i>
         <input
           type="text"
           id="searchBox"
           placeholder=" Search Videos"
           autocomplete="off"
+          onselect=""
         />
       </div>
     </section>
@@ -149,31 +150,32 @@
       <ul id="filters">
         <span id="label">Sort by : </span>
         <span id="sortLabel"></span>
-        <div class="listItems">
+        <li class="sorter">
+          <button class="filter more" id="sort-toggler" class="sortToggler">▼</button>
+        </li>
+        <div class="listItems invisible">
 
           <li class="filter">
-            <button class="filter invisible selected"><span>Relevance</span></button>
+            <button class="filter selected"><span>Relevance</span></button>
           </li>
           <li class="filter">
-            <button class="filter invisible"><span>Last Week</span></button>
+            <button class="filter"><span>Last Week</span></button>
           </li>
           <li class="filter">
-            <button class="filter invisible"><span>Last Month</span></button>
+            <button class="filter"><span>Last Month</span></button>
           </li>
           <li class="filter">
-            <button class="filter invisible"><span>Last Year</span></button>
+            <button class="filter"><span>Last Year</span></button>
           </li>
           <li class="filter">
-            <button class="filter invisible"><span>Views</span></button>
+            <button class="filter"><span>Views</span></button>
           </li>
           <li class="filter">
-            <button class="filter invisible"><span>Rating</span></button>
+            <button class="filter"><span>Rating</span></button>
           </li>
   
-          <li class="filter">
-            <button class="filter more" id="sort-toggler">▼</button>
-          </li>
         </div>
+
       </ul>
 
       <div id="views">
@@ -416,6 +418,7 @@
               <button
                 id="trackStatusButton"
                 title="Click to see list of trackers."
+                class="trackButton"
               >
                 0 TRACKS
               </button>
@@ -1352,12 +1355,12 @@
     <button id="returnTop" title="Return to top."></button>
 
     <!-- Bottom -->
-    <section id="bottom" class="invisible">
-      <div id="message">
+    <section id="bottom">
+      <div id="message" class="invisible">
         <div id="wrapper">
           <p id="details"></p>
         </div>
-        <div id="buttonWrapper">
+        <div id="buttonWrapper" class="invisible">
           <button
             id="trackStatusButton"
             title="Track selection."
@@ -2543,7 +2546,7 @@
     </section>
 
     <!-- Track Menu -->
-    <div id="trackMenu" class="dummy hidden error">
+    <div id="trackMenu" class="dummy hidden error trackMenu">
       <div id="menu">
         <input
           id="searchBox"

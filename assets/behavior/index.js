@@ -44,6 +44,8 @@ const closeBtn = bottom.querySelector("#close");
 const filters = document.getElementById("filters");
 const filter = filters.querySelectorAll("li");
 const sortToggler = document.getElementById("sort-toggler");
+const sortLabel = document.getElementById("sortLabel");
+let sortLbl = "";
 
 // for the view types
 const viewTypes = document.getElementById("views");
@@ -88,8 +90,8 @@ document.addEventListener("scroll", () => {
 
   if (
     //displays the scroll to top button
-    document.body.scrollTop > 2500 ||
-    document.documentElement.scrollTop > 2500
+    document.body.scrollTop > 500 ||
+    document.documentElement.scrollTop > 500
   ) {
     topBtn.classList.add("scroll");
   } else {
@@ -123,6 +125,20 @@ trackBtn.forEach((btn) => {
     trackMenu.style.top = rect.top - 410 + "px";
     trackMenu.style.left = rect.left - 105 + "px";
 
+    document.addEventListener("click", (e) => {
+      if (!e.target.classList.contains("trackmenu")) {
+        if (
+          trackMenu.classList.contains("hidden") &&
+          trackMenu.classList.contains("dummy") &&
+          btn.classList.contains("selected")
+        ) {
+          trackMenu.classList.toggle("hidden");
+          trackMenu.classList.toggle("dummy");
+          btn.classList.toggle("selected");
+        }
+      }
+    });
+
     const trck = trackMenu.querySelectorAll("li"); //addomg styles to selected tracks inside modals
     trck.forEach((t) => {
       t.addEventListener("click", () => {
@@ -138,6 +154,11 @@ trackBtn.forEach((btn) => {
     const createTrack = trackMenu.querySelector("#createTrackerForm");
     const formWrapper = createTrack.querySelector("#createTrackerFormWrapper");
     const createTracker = trackMenu.querySelector("#createTracker");
+
+    if (createTracker.style.display == "initial") {
+      trackMenu.style.top = rect.top - 405 + "px";
+    }
+
     addTrack.addEventListener("click", (e) => {
       //for adding tracks
       e.preventDefault();
@@ -160,14 +181,24 @@ trackBtn.forEach((btn) => {
 
 sortToggler.addEventListener("click", () => {
   //behavior of the sort Button
-  filter[0].classList.add("selected");
+  const listItems = filters.querySelector("div");
+  const rect = sortToggler.getBoundingClientRect();
+  // listItems.style.display = "initial";
+  listItems.classList.toggle("invisible");
+
+  listItems.style.position = "absolute";
+  listItems.style.top = rect.top - 140 + "px";
+  listItems.style.left = rect.left - 30 + "px";
+
   filter.forEach((tab) => {
     const filterBtn = tab.querySelector("button");
-    filterBtn.classList.toggle("invisible");
-    sortToggler.classList.remove("invisible");
     tab.addEventListener("click", () => {
+      // listItems.classList.add("invisible");
       filters.querySelector(".selected").classList.remove("selected");
       filterBtn.classList.add("selected");
+
+      sortLbl = filters.querySelector(".selected").textContent;
+      sortLabel.textContent = sortLbl;
     });
   });
 });
@@ -177,6 +208,11 @@ card.forEach((crd) => {
   const thumbnail = crd.querySelector("#thumbnail");
   const photo = thumbnail.querySelector("img");
   const checkMark = thumbnail.querySelector("button");
+
+  const addTracker = modal.querySelector("#addTracker");
+  const trackercreate = modal.querySelectorAll("input");
+  const trackertext = modal.querySelector("textarea");
+  const createBtn = modal.querySelector("#createTracker");
 
   checkMark.addEventListener("click", () => {
     //behavior for the selection of tracks and channels
@@ -198,15 +234,15 @@ card.forEach((crd) => {
     }
     if (selectionVideo > 0 || selectionChannel > 0) {
       //to keep track of selected channels and tracks
-      bottom.classList.remove("invisible");
+      message.style.backgroundColor = "#fd4444";
       btnWrapper.classList.remove("invisible");
-      closeBtn.classList.remove("invisible");
+      closeBtn.style.display = "initial";
       closeBtn.addEventListener("click", () => {
-        bottom.classList.add("invisible");
         btnWrapper.classList.add("invisible");
-        closeBtn.classList.add("invisible");
+        closeBtn.style.display = "none";
         selectionChannel = 0;
         selectionVideo = 0;
+        resetBottom();
         card.forEach((c) => {
           checkMark.classList.remove("highlighted");
         });
@@ -221,8 +257,7 @@ card.forEach((crd) => {
         details.innerHTML = `${selectionVideo + " Videos "}selected`;
       }
     } else {
-      bottom.classList.add("invisible");
-      closeBtn.classList.add("invisible");
+      closeBtn.style.display = "none";
     }
   });
 
@@ -238,6 +273,33 @@ card.forEach((crd) => {
       modal.classList.add("invisible");
       content.style.visibility = "visible";
       body.style.overflow = "initial";
+
+      addTracker.style.display = "flex";
+      trackercreate.forEach((tc) => {
+        tc.style.display = "none";
+      });
+      trackertext.style.display = "none";
+      createBtn.style.display = "none";
+    });
+
+    addTracker.addEventListener("click", (e) => {
+      e.preventDefault();
+      addTracker.style.display = "none";
+      trackercreate.forEach((tc) => {
+        tc.style.display = "initial";
+      });
+      trackertext.style.display = "initial";
+      createBtn.style.display = "initial";
+    });
+
+    createBtn.addEventListener("click", () => {
+      e.preventDefault();
+      addTracker.style.display = "flex";
+      trackercreate.forEach((tc) => {
+        tc.style.display = "none";
+      });
+      trackertext.style.display = "none";
+      createBtn.style.display = "none";
     });
   });
 });
@@ -249,3 +311,11 @@ favor.forEach((fv) => {
     fv.classList.toggle("selected");
   });
 });
+
+function resetBottom() {
+  details.textContent = "Select Videos/ Channels to track";
+  message.style.backgroundColor = "#4b9fff";
+  closeBtn.style.display = "none";
+}
+
+resetBottom();
