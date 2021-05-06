@@ -617,7 +617,7 @@ section#options ul#filters li.filter button.filter.hidden {
   display: none;
 }
 
-section#options ul#filters li.filter button.filter.selected span{
+section#options ul#filters li.filter button.filter.selected span {
   opacity: 1;
 }
 
@@ -1019,6 +1019,7 @@ main#content ul#cards li#card div#wrapper button#trackStatusButton {
   cursor: pointer;
   user-select: none;
   opacity: 0.2;
+  z-index: 10605;
 }
 
 main#content ul#cards li#card div#wrapper button#trackStatusButton:hover {
@@ -1988,9 +1989,18 @@ section#modals
   form#createTrackerForm
   div#createTrackerFormWrapper {
   transition: max-height 200ms;
-  max-height: 0px;
-  overflow: hidden;
+  max-height: fit-content;
+  /* overflow: hidden; */
 }
+
+/* section#modals
+  div#video.modal
+  div#tools
+  div#trackers
+  form#createTrackerForm
+  div#createTrackerFormWrapper.selected {
+  min-height: fit-content;
+} */
 
 section#modals
   div#video.modal
@@ -1998,7 +2008,7 @@ section#modals
   div#trackers
   form#createTrackerForm
   .input {
-  float: left;
+  /* float: left; */
   padding: 15px;
   border-radius: var(--radius25);
   color: var(--whitish);

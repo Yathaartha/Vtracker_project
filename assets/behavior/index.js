@@ -56,12 +56,8 @@ const favor = document.querySelectorAll("#favor");
 let selectionChannel = 0;
 let selectionVideo = 0;
 
-btnWrapper.addEventListener("click", () => {
-  var rect = btnWrapper.getBoundingClientRect();
-  btnWrapper.classList.add("selected");
-});
-
 viewType.forEach((view) => {
+  //view buttons toggle
   view.addEventListener("click", () => {
     if (!view.classList.contains("selected")) {
       viewTypes.querySelector(".selected").classList.remove("selected");
@@ -132,17 +128,31 @@ trackBtn.forEach((btn) => {
       t.addEventListener("click", () => {
         const b = t.querySelector("button");
         b.classList.toggle("selected");
+        // trackMenu.style.position = "fixed";
+        trackMenu.style.top = rect.top - 210 + "px";
+        trackMenu.style.left = rect.left - 105 + "px";
       });
     });
 
     const addTrack = trackMenu.querySelector("#addTracker");
     const createTrack = trackMenu.querySelector("#createTrackerForm");
+    const formWrapper = createTrack.querySelector("#createTrackerFormWrapper");
     const createTracker = trackMenu.querySelector("#createTracker");
     addTrack.addEventListener("click", (e) => {
       //for adding tracks
       e.preventDefault();
       addTrack.style.display = "none";
+      formWrapper.style.maxHeight = "300px";
+      trackMenu.style.top = rect.top - 595 + "px";
       createTracker.style.display = "initial";
+
+      createTracker.addEventListener("click", (e) => {
+        e.preventDefault();
+        addTrack.style.display = "initial";
+        createTracker.style.display = "none";
+        formWrapper.style.maxHeight = "0px";
+        trackMenu.style.top = rect.top - 405 + "px";
+      });
     });
   });
 });
