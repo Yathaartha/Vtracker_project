@@ -16,37 +16,43 @@
 	
 	
 */
-const body = document.querySelector("body");
+const body = document.querySelector("body"); //body element
 
-const modal = document.getElementById("modals");
+const modal = document.getElementById("modals"); //modal element
 const content = document.getElementById("content");
 const card = content.querySelectorAll("#card");
 const modalwindow = document.getElementById("window");
 
-const topBtn = document.getElementById("returnTop");
+const topBtn = document.getElementById("returnTop"); //scroll to top button
 
 const sectionTracker = modal.querySelector("#trackers");
 const trackers = sectionTracker.querySelector("ul");
 const tracker = trackers.querySelectorAll("li");
 
+// for the tracker list
 const trackMenu = document.getElementById("trackMenu");
 const trackBtn = document.querySelectorAll("#trackStatusButton");
 
+// keeping tracks of selected tracks and channels
 const bottom = document.getElementById("bottom");
 const message = bottom.querySelector("#message");
 const details = message.querySelector("#details");
 const btnWrapper = message.querySelector("#buttonWrapper");
 const closeBtn = bottom.querySelector("#close");
 
+// for the sort options
 const filters = document.getElementById("filters");
 const filter = filters.querySelectorAll("li");
 const sortToggler = document.getElementById("sort-toggler");
 
+// for the view types
 const viewTypes = document.getElementById("views");
-const viewType = viewTypes.querySelectorAll("button");
+const viewType = viewTypes.querySelectorAll(".viewButton");
 
+// for adding favorites
 const favor = document.querySelectorAll("#favor");
 
+// variables to count selected channels and videos
 let selectionChannel = 0;
 let selectionVideo = 0;
 
@@ -55,7 +61,17 @@ btnWrapper.addEventListener("click", () => {
   btnWrapper.classList.add("selected");
 });
 
+viewType.forEach((view) => {
+  view.addEventListener("click", () => {
+    if (!view.classList.contains("selected")) {
+      viewTypes.querySelector(".selected").classList.remove("selected");
+      view.classList.add("selected");
+    }
+  });
+});
+
 document.addEventListener("scroll", () => {
+  //behavior for the nav menu
   const nav = document.querySelector("nav");
   const search = document.querySelector("#search");
   const navsearch = nav.querySelector("input");
@@ -64,8 +80,7 @@ document.addEventListener("scroll", () => {
     document.body.scrollTop > 100 ||
     document.documentElement.scrollTop > 100
   ) {
-    // const seperator = document.getElementById("seperator");
-    // seperator.style.display = "none";
+    //removes the top links and replaces it with the search bar
     search.style.display = "none";
     navsearch.classList.remove("invisible");
     navlist.classList.add("invisible");
@@ -76,6 +91,7 @@ document.addEventListener("scroll", () => {
   }
 
   if (
+    //displays the scroll to top button
     document.body.scrollTop > 2500 ||
     document.documentElement.scrollTop > 2500
   ) {
@@ -86,10 +102,12 @@ document.addEventListener("scroll", () => {
 });
 
 topBtn.addEventListener("click", () => {
+  //behavior of the scroll to top button
   window.scrollTo(0, 0);
 });
 
 tracker.forEach((modalTrack) => {
+  //for adding style to selected tracks
   modalTrack.addEventListener("click", () => {
     const modalTrackBtn = modalTrack.querySelector("#checkMark");
     modalTrackBtn.classList.toggle("selected");
@@ -97,6 +115,7 @@ tracker.forEach((modalTrack) => {
 });
 
 trackBtn.forEach((btn) => {
+  //displaying the track list if clicked on the 'tracks' button
   btn.addEventListener("click", () => {
     var rect = btn.getBoundingClientRect();
 
@@ -108,7 +127,7 @@ trackBtn.forEach((btn) => {
     trackMenu.style.top = rect.top - 410 + "px";
     trackMenu.style.left = rect.left - 105 + "px";
 
-    const trck = trackMenu.querySelectorAll("li");
+    const trck = trackMenu.querySelectorAll("li"); //addomg styles to selected tracks inside modals
     trck.forEach((t) => {
       t.addEventListener("click", () => {
         const b = t.querySelector("button");
@@ -120,6 +139,7 @@ trackBtn.forEach((btn) => {
     const createTrack = trackMenu.querySelector("#createTrackerForm");
     const createTracker = trackMenu.querySelector("#createTracker");
     addTrack.addEventListener("click", (e) => {
+      //for adding tracks
       e.preventDefault();
       addTrack.style.display = "none";
       createTracker.style.display = "initial";
@@ -128,6 +148,7 @@ trackBtn.forEach((btn) => {
 });
 
 sortToggler.addEventListener("click", () => {
+  //behavior of the sort Button
   filter[0].classList.add("selected");
   filter.forEach((tab) => {
     const filterBtn = tab.querySelector("button");
@@ -141,26 +162,31 @@ sortToggler.addEventListener("click", () => {
 });
 
 card.forEach((crd) => {
+  //behavior for the cards
   const thumbnail = crd.querySelector("#thumbnail");
   const photo = thumbnail.querySelector("img");
   const checkMark = thumbnail.querySelector("button");
 
   checkMark.addEventListener("click", () => {
+    //behavior for the selection of tracks and channels
     checkMark.classList.toggle("highlighted");
     if (checkMark.classList.contains("highlighted")) {
       if (crd.classList.contains("channel")) {
+        //checks for selected channels
         selectionChannel++;
       } else {
         selectionVideo++;
       }
     } else {
       if (crd.classList.contains("channel")) {
+        //checks for unselected channels
         selectionChannel--;
       } else {
         selectionVideo--;
       }
     }
     if (selectionVideo > 0 || selectionChannel > 0) {
+      //to keep track of selected channels and tracks
       bottom.classList.remove("invisible");
       btnWrapper.classList.remove("invisible");
       closeBtn.classList.remove("invisible");
@@ -175,6 +201,7 @@ card.forEach((crd) => {
         });
       });
       if (selectionChannel > 0 && selectionVideo > 0) {
+        //displaying correct count
         details.innerHTML = `${selectionVideo + " Videos . "} 
         ${selectionChannel + " Channels selected"}`;
       } else if (selectionChannel > 0 && selectionVideo === 0) {
@@ -188,18 +215,15 @@ card.forEach((crd) => {
     }
   });
 
-  // tracks.addEventListener("click", () => {
-  //   trackMenu.classList.toggle("dummy");
-  //   trackMenu.classList.toggle("hidden");
-  // });
-
   photo.addEventListener("click", () => {
+    //behavior of the cards. modal pops up if clicked
     modal.classList.remove("invisible");
-    window.scrollTo(0, 0);
+    window.scrollTo(0, 0); //scroll into visibility
     body.style.overflow = "hidden";
     console.log(photo.offsetTop);
 
     modalwindow.addEventListener("click", () => {
+      //closes the modal window
       modal.classList.add("invisible");
       content.style.visibility = "visible";
       body.style.overflow = "initial";
@@ -208,6 +232,7 @@ card.forEach((crd) => {
 });
 
 favor.forEach((fv) => {
+  //for adding to favorites
   fv.addEventListener("click", () => {
     // fv.classList.remove("highlighted");
     fv.classList.toggle("selected");
