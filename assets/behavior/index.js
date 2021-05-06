@@ -147,6 +147,7 @@ trackBtn.forEach((btn) => {
       createTracker.style.display = "initial";
 
       createTracker.addEventListener("click", (e) => {
+        //for create form in tracklist
         e.preventDefault();
         addTrack.style.display = "initial";
         createTracker.style.display = "none";
