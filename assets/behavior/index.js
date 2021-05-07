@@ -145,6 +145,7 @@ trackBtn.forEach((btn) => {
     body.addEventListener("click", (e) => {
       console.log(e.target);
       if (
+        //buttons dont close within these conditions
         e.target === btn ||
         e.target === trackMenu.querySelector("#menu") ||
         e.target === createTrack ||
@@ -163,7 +164,7 @@ trackBtn.forEach((btn) => {
         trackMenu.classList.add("hidden");
         trackMenu.classList.add("dummy");
         btn.classList.remove("selected");
-        addTrack.style.display = "initial";
+        addTrack.style.display = "initial"; //resets create track
         createTracker.style.display = "none";
         formWrapper.style.maxHeight = "0px";
         // trackMenu.style.top = rect.top - 405 + "px";
@@ -295,6 +296,7 @@ card.forEach((crd) => {
     });
 
     addTracker.addEventListener("click", (e) => {
+      //create track inside modal
       e.preventDefault();
       addTracker.style.display = "none";
       trackercreate.forEach((tc) => {
@@ -305,6 +307,7 @@ card.forEach((crd) => {
     });
 
     createBtn.addEventListener("click", () => {
+      //create track inside modal
       e.preventDefault();
       addTracker.style.display = "flex";
       trackercreate.forEach((tc) => {
@@ -325,12 +328,14 @@ favor.forEach((fv) => {
 });
 
 function resetBottom() {
+  //resets the bottom text
   details.textContent = "Select Videos/ Channels to track";
   message.style.backgroundColor = "#4b9fff";
   closeBtn.style.display = "none";
 }
 
 function crossSign() {
+  //changes search to cross
   const icon = search.querySelector("i");
   icon.className = "fas fa-times fa-3x";
 
