@@ -341,7 +341,7 @@ card.forEach((crd) => {
       createBtn.style.display = "initial";
     });
 
-    createBtn.addEventListener("click", () => {
+    createBtn.addEventListener("click", (e) => {
       //create track inside modal
       e.preventDefault();
       addTracker.style.display = "flex";
