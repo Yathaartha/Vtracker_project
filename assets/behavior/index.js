@@ -152,9 +152,8 @@ trackBtn.forEach((btn) => {
         trck.forEach((t) => {
           t.addEventListener("click", function trackSelect() {
             const b = t.querySelector("button");
-            if (b.classList.contains("selected")) {
-              b.classList.remove("selected");
-            } else {
+            if (!b.classList.contains("selected")) {
+              trackMenu.querySelector("selected").classList.remove("selected");
               b.classList.add("selected");
             }
           });
@@ -188,7 +187,6 @@ trackBtn.forEach((btn) => {
       ) {
         trackMenu.classList.remove("hidden");
         trackMenu.classList.remove("dummy");
-        trackSelect();
       } else {
         trackMenu.classList.add("hidden");
         trackMenu.classList.add("dummy");
