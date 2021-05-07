@@ -146,10 +146,25 @@ trackBtn.forEach((btn) => {
       console.log(e.target);
       if (
         //buttons dont close within these conditions
-        e.target === btn ||
+        e.target === btn
+      ) {
+        const trck = trackMenu.querySelectorAll("li"); //addomg styles to selected tracks inside modals
+        trck.forEach((t) => {
+          t.addEventListener("click", function trackSelect() {
+            const b = t.querySelector("button");
+            if (b.classList.contains("selected")) {
+              b.classList.remove("selected");
+            } else {
+              b.classList.add("selected");
+            }
+          });
+        });
+        trackMenu.classList.remove("hidden");
+        trackMenu.classList.remove("dummy");
+        btn.classList.add("selected");
+      } else if (
         e.target === trackMenu.querySelector("#menu") ||
         e.target === createTrack ||
-        e.target === trackMenu.querySelectorAll("span") ||
         e.target === addTrack ||
         e.target === createTrack ||
         e.target === trackMenu.querySelector("#trackerName") ||
@@ -159,7 +174,21 @@ trackBtn.forEach((btn) => {
       ) {
         trackMenu.classList.remove("hidden");
         trackMenu.classList.remove("dummy");
-        btn.classList.add("selected");
+      } else if (
+        e.target === trackMenu.querySelectorAll("span")[0] ||
+        e.target === trackMenu.querySelectorAll("span")[1] ||
+        e.target === trackMenu.querySelectorAll("span")[2] ||
+        e.target === trackMenu.querySelectorAll("span")[3] ||
+        e.target === trackMenu.querySelectorAll("span")[4] ||
+        e.target === trackMenu.querySelectorAll("span")[5] ||
+        e.target === trackMenu.querySelectorAll("span")[6] ||
+        e.target === trackMenu.querySelectorAll("span")[7] ||
+        e.target === trackMenu.querySelectorAll("span")[8] ||
+        e.target === trackMenu.querySelectorAll("span")[9]
+      ) {
+        trackMenu.classList.remove("hidden");
+        trackMenu.classList.remove("dummy");
+        trackSelect();
       } else {
         trackMenu.classList.add("hidden");
         trackMenu.classList.add("dummy");
@@ -173,9 +202,13 @@ trackBtn.forEach((btn) => {
 
     const trck = trackMenu.querySelectorAll("li"); //addomg styles to selected tracks inside modals
     trck.forEach((t) => {
-      t.addEventListener("click", () => {
+      t.addEventListener("click", function trackSelect() {
         const b = t.querySelector("button");
-        b.classList.toggle("selected");
+        if (b.classList.contains("selected")) {
+          b.classList.remove("selected");
+        } else {
+          b.classList.add("selected");
+        }
       });
     });
 
@@ -270,6 +303,8 @@ card.forEach((crd) => {
         details.innerHTML = `${selectionVideo + " Videos "}selected`;
       }
     } else {
+      resetBottom();
+      btnWrapper.classList.add("invisible");
       closeBtn.style.display = "none";
     }
   });
