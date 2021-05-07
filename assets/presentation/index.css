@@ -591,6 +591,7 @@ section#options ul#filters {
   white-space: nowrap;
   /* background-color: #fff; */
   display: flex;
+  list-style: none;
 }
 
 section#options ul#filters div.listItems {
@@ -655,6 +656,10 @@ section#options ul#filters .sorter button {
 section#options ul#filters .sorter button:hover {
   color: #fff;
   opacity: 1;
+}
+
+section#options ul#filters sorter {
+  list-style: none;
 }
 
 section#options ul#filters li.filter button.filter span {

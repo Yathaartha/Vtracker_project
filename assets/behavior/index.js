@@ -113,31 +113,9 @@ tracker.forEach((modalTrack) => {
   });
 });
 
-window.onload = function () {
-  document.onclick = function (e) {
-    if (e.target.id == "content") {
-      trackMenu.style.display = "none";
-    }
-    if (e.target === openButton) {
-      return;
-    }
-  };
-};
-
 trackBtn.forEach((btn) => {
   //displaying the track list if clicked on the 'tracks' button
   btn.addEventListener("click", () => {
-    window.onload = function () {
-      document.onclick = function (e) {
-        if (e.target.id == "content") {
-          trackMenu.style.display = "none";
-        }
-        if (e.target === openButton) {
-          return;
-        }
-      };
-    };
-
     var rect = btn.getBoundingClientRect();
 
     trackMenu.classList.toggle("hidden");
@@ -153,7 +131,7 @@ trackBtn.forEach((btn) => {
       t.addEventListener("click", () => {
         const b = t.querySelector("button");
         b.classList.toggle("selected");
-        // trackMenu.style.position = "fixed";
+        trackMenu.style.position = "fixed";
         trackMenu.style.top = rect.top - 210 + "px";
         trackMenu.style.left = rect.left - 105 + "px";
       });
@@ -163,10 +141,6 @@ trackBtn.forEach((btn) => {
     const createTrack = trackMenu.querySelector("#createTrackerForm");
     const formWrapper = createTrack.querySelector("#createTrackerFormWrapper");
     const createTracker = trackMenu.querySelector("#createTracker");
-
-    if (createTracker.style.display == "initial") {
-      trackMenu.style.top = rect.top - 405 + "px";
-    }
 
     addTrack.addEventListener("click", (e) => {
       //for adding tracks
