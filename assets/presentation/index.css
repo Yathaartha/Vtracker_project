@@ -158,6 +158,10 @@ nav #searchBox input {
   border: none;
 }
 
+nav .fas {
+  display: none;
+}
+
 nav #searchBox::-webkit-search-cancel-button {
   /* Remove default */
   /* -webkit-appearance: none; */

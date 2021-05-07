@@ -75,16 +75,27 @@ document.addEventListener("scroll", () => {
   const nav = document.querySelector("nav");
   const navsearch = nav.querySelector("input");
   const navlist = nav.querySelector("ul");
+  const icon = nav.querySelector("i");
   if (
     document.body.scrollTop > 100 ||
     document.documentElement.scrollTop > 100
   ) {
     //removes the top links and replaces it with the search bar
+    icon.style.display = "initial";
     search.style.display = "none";
     navsearch.classList.remove("invisible");
     navlist.classList.add("invisible");
+    navsearch.addEventListener("click", () => {
+      icon.className = "fas fa-times fa-2x";
+
+      icon.addEventListener("click", () => {
+        icon.className = "fas fa-search fa-2x";
+        navsearch.value = "";
+      });
+    });
   } else {
     search.style.display = "initial";
+    icon.style.display = "none";
     navsearch.classList.add("invisible");
     navlist.classList.remove("invisible");
   }
@@ -296,7 +307,9 @@ function crossSign() {
   icon.className = "fas fa-times fa-3x";
 
   icon.addEventListener("click", () => {
+    icon.className = "fas fa-search fa-3x";
     const input = search.querySelector("input");
+
     input.value = "";
   });
 }
