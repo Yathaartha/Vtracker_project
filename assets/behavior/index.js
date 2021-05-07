@@ -129,6 +129,11 @@ trackBtn.forEach((btn) => {
   btn.addEventListener("click", () => {
     var rect = btn.getBoundingClientRect();
 
+    const addTrack = trackMenu.querySelector("#addTracker");
+    const createTrack = trackMenu.querySelector("#createTrackerForm");
+    const formWrapper = createTrack.querySelector("#createTrackerFormWrapper");
+    const createTracker = trackMenu.querySelector("#createTracker");
+
     trackMenu.classList.toggle("hidden");
     trackMenu.classList.toggle("dummy");
     btn.classList.toggle("selected");
@@ -137,6 +142,34 @@ trackBtn.forEach((btn) => {
     trackMenu.style.top = rect.top - 410 + "px";
     trackMenu.style.left = rect.left - 105 + "px";
 
+    body.addEventListener("click", (e) => {
+      console.log(e.target);
+      if (
+        e.target === btn ||
+        e.target === trackMenu.querySelector("#menu") ||
+        e.target === createTrack ||
+        e.target === trackMenu.querySelectorAll("span") ||
+        e.target === addTrack ||
+        e.target === createTrack ||
+        e.target === trackMenu.querySelector("#trackerName") ||
+        e.target === trackMenu.querySelector("#trackerDescription") ||
+        e.target === trackMenu.querySelector("#status") ||
+        e.target === trackMenu.querySelector("#createTracker")
+      ) {
+        trackMenu.classList.remove("hidden");
+        trackMenu.classList.remove("dummy");
+        btn.classList.add("selected");
+      } else {
+        trackMenu.classList.add("hidden");
+        trackMenu.classList.add("dummy");
+        btn.classList.remove("selected");
+        addTrack.style.display = "initial";
+        createTracker.style.display = "none";
+        formWrapper.style.maxHeight = "0px";
+        // trackMenu.style.top = rect.top - 405 + "px";
+      }
+    });
+
     const trck = trackMenu.querySelectorAll("li"); //addomg styles to selected tracks inside modals
     trck.forEach((t) => {
       t.addEventListener("click", () => {
@@ -144,11 +177,6 @@ trackBtn.forEach((btn) => {
         b.classList.toggle("selected");
       });
     });
-
-    const addTrack = trackMenu.querySelector("#addTracker");
-    const createTrack = trackMenu.querySelector("#createTrackerForm");
-    const formWrapper = createTrack.querySelector("#createTrackerFormWrapper");
-    const createTracker = trackMenu.querySelector("#createTracker");
 
     addTrack.addEventListener("click", (e) => {
       //for adding tracks
