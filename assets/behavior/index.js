@@ -131,9 +131,6 @@ trackBtn.forEach((btn) => {
       t.addEventListener("click", () => {
         const b = t.querySelector("button");
         b.classList.toggle("selected");
-        trackMenu.style.position = "fixed";
-        trackMenu.style.top = rect.top - 210 + "px";
-        trackMenu.style.left = rect.left - 105 + "px";
       });
     });
 
