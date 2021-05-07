@@ -82,7 +82,7 @@
       <a href="landing.html" id="logo"></a>
       <nav>
         <input
-        type="text"
+        type="search"
         id="searchBox"
         placeholder=" Search Videos"
         autocomplete="off"
@@ -125,11 +125,11 @@
       <div id="wrapper">
         <i class="fas fa-search fa-3x"></i>
         <input
-          type="text"
+          type="search"
           id="searchBox"
           placeholder=" Search Videos"
           autocomplete="off"
-          onselect=""
+          onclick=crossSign()
         />
       </div>
     </section>
@@ -148,7 +148,7 @@
       </p>
 
       <ul id="filters">
-        <span id="label">Sort by : </span>
+        <span id="label">Sort by: </span>
         <span id="sortLabel"></span>
         <li class="sorter">
           <button class="filter more" id="sort-toggler" class="sortToggler">▼</button>
@@ -2550,7 +2550,7 @@
       <div id="menu">
         <input
           id="searchBox"
-          type="text"
+          type="search"
           placeholder="Search Trackers"
           autocomplete="off"
         />

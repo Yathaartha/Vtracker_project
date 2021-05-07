@@ -45,7 +45,6 @@ const filters = document.getElementById("filters");
 const listItems = filters.querySelector(".listItems");
 const sortToggler = document.getElementById("sort-toggler");
 const sortLabel = document.getElementById("sortLabel");
-let sortLbl = "";
 
 // for the view types
 const viewTypes = document.getElementById("views");
@@ -53,6 +52,9 @@ const viewType = viewTypes.querySelectorAll(".viewButton");
 
 // for adding favorites
 const favor = document.querySelectorAll("#favor");
+
+// search bar
+const search = document.querySelector("#search");
 
 // variables to count selected channels and videos
 let selectionChannel = 0;
@@ -71,7 +73,6 @@ viewType.forEach((view) => {
 document.addEventListener("scroll", () => {
   //behavior for the nav menu
   const nav = document.querySelector("nav");
-  const search = document.querySelector("#search");
   const navsearch = nav.querySelector("input");
   const navlist = nav.querySelector("ul");
   if (
@@ -112,9 +113,31 @@ tracker.forEach((modalTrack) => {
   });
 });
 
+window.onload = function () {
+  document.onclick = function (e) {
+    if (e.target.id == "content") {
+      trackMenu.style.display = "none";
+    }
+    if (e.target === openButton) {
+      return;
+    }
+  };
+};
+
 trackBtn.forEach((btn) => {
   //displaying the track list if clicked on the 'tracks' button
   btn.addEventListener("click", () => {
+    window.onload = function () {
+      document.onclick = function (e) {
+        if (e.target.id == "content") {
+          trackMenu.style.display = "none";
+        }
+        if (e.target === openButton) {
+          return;
+        }
+      };
+    };
+
     var rect = btn.getBoundingClientRect();
 
     trackMenu.classList.toggle("hidden");
@@ -124,20 +147,6 @@ trackBtn.forEach((btn) => {
     trackMenu.style.position = "fixed";
     trackMenu.style.top = rect.top - 410 + "px";
     trackMenu.style.left = rect.left - 105 + "px";
-
-    document.addEventListener("click", (e) => {
-      if (!e.target.classList.contains("trackmenu")) {
-        if (
-          trackMenu.classList.contains("hidden") &&
-          trackMenu.classList.contains("dummy") &&
-          btn.classList.contains("selected")
-        ) {
-          trackMenu.classList.toggle("hidden");
-          trackMenu.classList.toggle("dummy");
-          btn.classList.toggle("selected");
-        }
-      }
-    });
 
     const trck = trackMenu.querySelectorAll("li"); //addomg styles to selected tracks inside modals
     trck.forEach((t) => {
@@ -309,6 +318,16 @@ function resetBottom() {
   details.textContent = "Select Videos/ Channels to track";
   message.style.backgroundColor = "#4b9fff";
   closeBtn.style.display = "none";
+}
+
+function crossSign() {
+  const icon = search.querySelector("i");
+  icon.className = "fas fa-times fa-3x";
+
+  icon.addEventListener("click", () => {
+    const input = search.querySelector("input");
+    input.value = "";
+  });
 }
 
 resetBottom();
