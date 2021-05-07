@@ -42,7 +42,7 @@ const closeBtn = bottom.querySelector("#close");
 
 // for the sort options
 const filters = document.getElementById("filters");
-const filter = filters.querySelectorAll("li");
+const listItems = filters.querySelector(".listItems");
 const sortToggler = document.getElementById("sort-toggler");
 const sortLabel = document.getElementById("sortLabel");
 let sortLbl = "";
@@ -180,25 +180,18 @@ trackBtn.forEach((btn) => {
 });
 
 sortToggler.addEventListener("click", () => {
-  //behavior of the sort Button
-  const listItems = filters.querySelector("div");
+  listItems.classList.remove("invisible");
   const rect = sortToggler.getBoundingClientRect();
-  // listItems.style.display = "initial";
-  listItems.classList.toggle("invisible");
-
   listItems.style.position = "absolute";
   listItems.style.top = rect.top - 140 + "px";
   listItems.style.left = rect.left - 30 + "px";
-
-  filter.forEach((tab) => {
-    const filterBtn = tab.querySelector("button");
-    tab.addEventListener("click", () => {
-      // listItems.classList.add("invisible");
-      filters.querySelector(".selected").classList.remove("selected");
-      filterBtn.classList.add("selected");
-
-      sortLbl = filters.querySelector(".selected").textContent;
-      sortLabel.textContent = sortLbl;
+  const listItem = listItems.querySelectorAll("button");
+  listItem.forEach((item) => {
+    item.addEventListener("click", () => {
+      listItems.classList.add("invisible");
+      listItems.querySelector(".selected").classList.remove("selected");
+      item.classList.add("selected");
+      sortLabel.textContent = listItems.querySelector(".selected").textContent;
     });
   });
 });
