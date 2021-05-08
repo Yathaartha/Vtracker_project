@@ -162,6 +162,7 @@ trackBtn.forEach((btn) => {
         trackMenu.classList.remove("dummy");
         btn.classList.add("selected");
       } else if (
+        //else if section
         e.target === trackMenu.querySelector("#menu") ||
         e.target === createTrack ||
         e.target === addTrack ||
